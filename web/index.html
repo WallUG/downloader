@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Downloader - Descarga videos de múltiples plataformas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎬 Video Downloader</h1>
+      <p class="subtitle">Descarga videos de Instagram, TikTok, Facebook, Reddit, Imgur y más</p>
+    </header>
+
+    <main>
+      <section class="search-section">
+        <form id="download-form">
+          <div class="input-group">
+            <input 
+              type="url" 
+              id="video-url" 
+              placeholder="Pega el enlace del video aquí..."
+              required
+              autocomplete="off"
+            >
+            <button type="submit" id="submit-btn">
+              <span class="btn-text">Obtener Video</span>
+              <span class="btn-loading" hidden>
+                <span class="spinner"></span>
+                Procesando...
+              </span>
+            </button>
+          </div>
+        </form>
+        
+        <div class="platforms">
+          <span class="platform-badge" data-platform="instagram">Instagram</span>
+          <span class="platform-badge" data-platform="tiktok">TikTok</span>
+          <span class="platform-badge" data-platform="facebook">Facebook</span>
+          <span class="platform-badge" data-platform="reddit">Reddit</span>
+          <span class="platform-badge" data-platform="imgur">Imgur</span>
+          <span class="platform-badge" data-platform="youtube">YouTube</span>
+          <span class="platform-badge" data-platform="twitter">Twitter/X</span>
+          <span class="platform-badge" data-platform="pinterest">Pinterest</span>
+        </div>
+      </section>
+
+      <section id="results-section" class="results-section" hidden>
+        <div class="result-header">
+          <h2 id="result-title">Resultado</h2>
+          <span id="result-platform" class="platform-tag"></span>
+        </div>
+        
+        <div class="result-meta">
+          <p id="result-author"></p>
+          <div class="stats">
+            <span id="result-views" hidden>👁️ <span></span></span>
+            <span id="result-likes" hidden>❤️ <span></span></span>
+          </div>
+        </div>
+
+        <div id="media-list" class="media-list"></div>
+      </section>
+
+      <section id="error-section" class="error-section" hidden>
+        <div class="error-content">
+          <span class="error-icon">⚠️</span>
+          <h3>Error al procesar</h3>
+          <p id="error-message"></p>
+          <button id="retry-btn" class="retry-btn">Intentar de nuevo</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p class="footer-text">Powered by <a href="https://github.com/totallynotdavid/downloader" target="_blank">@totallynotdavid/downloader</a></p>
+      <p class="footer-text disclaimer">Solo para uso personal. Respeta los derechos de autor.</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
