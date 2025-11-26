@@ -33,16 +33,23 @@
   "scripts": {
     "clean": "shx rm -rf dist",
     "format": "biome format --write . && biome check --write . && bun x prettier \"**/*.{md,yml}\" --write --print-width=80 --prose-wrap=always",
-    "build": "bun run biome:check && bun run biome:format && tsc -p tsconfig.json",
+    "biome:check": "npx @biomejs/biome check .",
+    "biome:format": "npx @biomejs/biome format --write .",
+    "build": "npm run biome:check && npm run biome:format && tsc -p tsconfig.json",
     "dev": "bun src/dev.ts",
-    "prepublishOnly": "bun run clean && bun run build"
+    "start": "npx tsx src/server.ts",
+    "server": "npm run biome:check && npm run start",
+    "prepublishOnly": "npm run clean && npm run build"
   },
   "dependencies": {
     "axios": "^1.7.7",
     "cheerio": "1.1.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.3.7",
     "@types/bun": "^1.3.3",
-    "shx": "^0.4.0"
+    "@types/node": "^24.10.1",
+    "shx": "^0.4.0",
+    "tsx": "^4.20.6"
   }
 }
