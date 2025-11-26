@@ -51,23 +51,24 @@ async function serveStaticFile(
 ): Promise<void> {
   try {
     const fullPath = path.join(WEB_DIR, filePath);
-    const normalizedPath = path.normalize(fullPath);
+    const resolvedPath = path.resolve(fullPath);
+    const resolvedWebDir = path.resolve(WEB_DIR);
 
-    if (!normalizedPath.startsWith(WEB_DIR)) {
+    if (!resolvedPath.startsWith(resolvedWebDir + path.sep)) {
       res.writeHead(403);
       res.end("Forbidden");
       return;
     }
 
-    const stat = await fs.promises.stat(normalizedPath);
+    const stat = await fs.promises.stat(resolvedPath);
 
     if (stat.isDirectory()) {
       await serveStaticFile(res, path.join(filePath, "index.html"));
       return;
     }
 
-    const content = await fs.promises.readFile(normalizedPath);
-    res.writeHead(200, { "Content-Type": getMimeType(normalizedPath) });
+    const content = await fs.promises.readFile(resolvedPath);
+    res.writeHead(200, { "Content-Type": getMimeType(resolvedPath) });
     res.end(content);
   } catch {
     res.writeHead(404);

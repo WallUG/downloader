@@ -11,6 +11,12 @@ const errorMessage = document.getElementById("error-message");
 const retryBtn = document.getElementById("retry-btn");
 const platformBadges = document.querySelectorAll(".platform-badge");
 
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
 function setLoading(isLoading) {
   submitBtn.disabled = isLoading;
   btnText.hidden = isLoading;
@@ -110,15 +116,19 @@ function showResults(data) {
     const mediaItem = document.createElement("div");
     mediaItem.className = "media-item";
 
+    const safeFilename = escapeHtml(item.filename);
+    const safeType = escapeHtml(item.type);
+    const safeUrl = escapeHtml(item.url);
+
     mediaItem.innerHTML = `
       <div class="media-info">
         <div class="media-type">${getMediaTypeIcon(item.type)}</div>
         <div>
-          <div class="media-filename">${item.filename}</div>
-          <small style="color: var(--text-secondary); text-transform: capitalize;">${item.type}</small>
+          <div class="media-filename">${safeFilename}</div>
+          <small style="color: var(--text-secondary); text-transform: capitalize;">${safeType}</small>
         </div>
       </div>
-      <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="download-btn" download="${item.filename}">
+      <a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="download-btn" download="${safeFilename}">
         ⬇️ Descargar
       </a>
     `;
